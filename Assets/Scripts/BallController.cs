@@ -29,10 +29,6 @@ public class BallController : MonoBehaviour
         {
             _gameController.PlayerScores();
         }
-        else if (collision.collider.CompareTag("TopWall") || collision.collider.CompareTag("BottomWall"))
-        {
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, -_rigidbody.velocity.y);
-        }
     }
 
     public void ResetBall()
