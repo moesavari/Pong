@@ -36,9 +36,16 @@ public class BallController : MonoBehaviour
         _rigidbody.velocity = Vector2.zero;
         transform.position = Vector2.zero;
 
-        float randomX = Random.Range(-1f, 1f);
-        float randomY = Random.Range(-1f, 1f);
-        Vector2 initialDirection = new Vector2(randomX, randomY).normalized;
+        float angle = Random.Range(0, 45);
+        float radians = angle * Mathf.Deg2Rad;
+        Vector2 initialDirection = new Vector2(Mathf.Cos(radians), Mathf.Sin(radians)).normalized;
+
+        // Randomly choose the initial direction to be left or right
+        if (Random.value > 0.5f)
+        {
+            initialDirection.x = -initialDirection.x;
+        }
+
         _rigidbody.velocity = initialDirection * _speed;
     }
 }
