@@ -15,14 +15,15 @@ public class PaddleController : MonoBehaviour
     {
         if (_isPlayer)
         {
+            // Handle player input for vertical movement
             float verticalInput = Input.GetAxis("Vertical");
             _rigidbody.velocity = new Vector2(0, verticalInput * _speed);
         }
         else
         {
+            // Smoothly move AI paddle towards the ball
             float targetY = GameController.Instance.Ball.transform.position.y;
             float smoothY = Mathf.SmoothDamp(transform.position.y, targetY, ref _currentYVelocity, _aiSmoothTime, _speed, Time.deltaTime);
-
             float desiredVelocity = (smoothY - transform.position.y) / Time.deltaTime;
 
             // Clamp the AI paddle's velocity to ensure it does not exceed max speed
@@ -32,6 +33,7 @@ public class PaddleController : MonoBehaviour
             _rigidbody.velocity = new Vector2(0, (smoothY - transform.position.y) / Time.deltaTime);
         }
 
+        // Clamp the paddle's position within the vertical bounds
         float clampedY = Mathf.Clamp(transform.position.y, -_verticalBounds, _verticalBounds);
         transform.position = new Vector2(transform.position.x, clampedY);
     }

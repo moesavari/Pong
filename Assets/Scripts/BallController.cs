@@ -15,12 +15,14 @@ public class BallController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Handle collision with paddles
         if (collision.collider.CompareTag("Paddle"))
         {
             Vector2 direction = transform.position - collision.collider.transform.position;
             _rigidbody.velocity = direction.normalized * _speed;
         }
 
+        // Handle collision with left and right walls
         if (collision.collider.CompareTag("LeftWall"))
         {
             _gameController.AIScores();
@@ -31,6 +33,7 @@ public class BallController : MonoBehaviour
         }
     }
 
+    // Reset the ball to the center with a randomized direction
     public void ResetBall()
     {
         _rigidbody.velocity = Vector2.zero;
